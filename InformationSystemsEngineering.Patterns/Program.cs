@@ -1,4 +1,6 @@
 ﻿using System;
+using InformationSystemsEngineering.Patterns.Strategy;
+using InformationSystemsEngineering.Patterns.Strategy.Services;
 using InformationSystemsEngineering.Patterns.TemplateMethod;
 using InformationSystemsEngineering.Patterns.TemplateMethod.Models;
 using InformationSystemsEngineering.Patterns.TemplateMethod.Validators;
@@ -7,7 +9,7 @@ namespace InformationSystemsEngineering.Patterns
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
@@ -43,6 +45,30 @@ namespace InformationSystemsEngineering.Patterns
             
             Console.WriteLine();
             
+            #endregion
+
+            #region Strategy
+            
+            var context = new Context();
+            
+            // course schedule
+            var courseScheduleService = new CourseScheduleService();
+
+            context.ScheduleService = courseScheduleService;
+
+            var courseSchedule = context.Get();
+
+            Console.WriteLine(courseSchedule.Content);
+
+            // exam schedule
+            var examScheduleService = new ExamScheduleService();
+
+            context.ScheduleService = examScheduleService;
+
+            var examSchedule = context.Get();
+            
+            Console.WriteLine(examSchedule.Content);
+
             #endregion
         }
     }

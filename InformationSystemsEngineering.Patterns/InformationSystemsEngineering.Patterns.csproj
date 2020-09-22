@@ -11,8 +11,4 @@
       <PackageReference Include="Microsoft.Net.Compilers" Version="3.7.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Strategy" />
-    </ItemGroup>
-
 </Project>
