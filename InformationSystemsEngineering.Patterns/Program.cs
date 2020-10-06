@@ -1,4 +1,6 @@
 ﻿using System;
+using InformationSystemsEngineering.Patterns.ObserverIterator.Iterator;
+using InformationSystemsEngineering.Patterns.ObserverIterator.Observer;
 using InformationSystemsEngineering.Patterns.Strategy;
 using InformationSystemsEngineering.Patterns.Strategy.Services;
 using InformationSystemsEngineering.Patterns.TemplateMethod;
@@ -68,6 +70,49 @@ namespace InformationSystemsEngineering.Patterns
             var examSchedule = context.Get();
             
             Console.WriteLine(examSchedule.Content);
+
+            #endregion
+
+            #region Iterator
+            
+            var collection = new NotificationCollection<string>();
+            collection.Add("Dog");
+            collection.Add("Cat");
+            collection.Add("Duck");
+
+            Console.WriteLine("Animals: ");
+
+            foreach (var element in collection)
+            {
+                Console.WriteLine(element);
+            }
+
+            Console.WriteLine("\nReverse animals:");
+
+            collection.ReverseDirection();
+
+            foreach (var element in collection)
+            {
+                Console.WriteLine(element);
+            }
+
+            #endregion
+
+            #region ObserverIterator
+            
+            var notificationService = new NotificationServiceObserver();
+            var mobileClient = new MobileClient();
+            notificationService.Attach(mobileClient);
+
+            var desktopClient = new DesktopClient();
+            notificationService.Attach(desktopClient);
+
+            notificationService.ChangeState(2);
+            notificationService.ChangeState(3);
+
+            notificationService.Detach(desktopClient);
+
+            notificationService.ChangeState(2);
 
             #endregion
         }
