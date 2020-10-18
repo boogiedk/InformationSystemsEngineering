@@ -1,4 +1,5 @@
 ﻿using System;
+using InformationSystemsEngineering.Patterns.ChainOfCommand;
 using InformationSystemsEngineering.Patterns.ObserverIterator.Iterator;
 using InformationSystemsEngineering.Patterns.ObserverIterator.Observer;
 using InformationSystemsEngineering.Patterns.Strategy;
@@ -113,6 +114,22 @@ namespace InformationSystemsEngineering.Patterns
             notificationService.Detach(desktopClient);
 
             notificationService.ChangeState(2);
+
+            #endregion
+
+            #region ChainOfCommand
+            
+            var requestValidator = new RequestValidatorHandler();
+            var titleValidator = new TitleValidatorHandler();
+            var contentValidator = new ContentValidatorHandler();
+
+            Console.WriteLine("Chain of validate");
+            
+            requestValidator
+                .SetNext(titleValidator)
+                .SetNext(contentValidator);
+            
+            Console.WriteLine();
 
             #endregion
         }
