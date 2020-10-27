@@ -15,9 +15,4 @@ namespace InformationSystemsEngineering.Patterns.ObserverIterator.Iterator
         
         public abstract void Reset();
     }
-
-    abstract class IteratorAggregate : IEnumerable
-    {
-        public abstract IEnumerator GetEnumerator();
-    }
 }
