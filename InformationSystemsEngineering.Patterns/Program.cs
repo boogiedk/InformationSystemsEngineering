@@ -1,5 +1,6 @@
 ﻿using System;
 using InformationSystemsEngineering.Patterns.ChainOfCommand;
+using InformationSystemsEngineering.Patterns.InversionOfControl.FactoryMethod;
 using InformationSystemsEngineering.Patterns.ObserverIterator.Iterator;
 using InformationSystemsEngineering.Patterns.ObserverIterator.Observer;
 using InformationSystemsEngineering.Patterns.Strategy;
@@ -130,6 +131,18 @@ namespace InformationSystemsEngineering.Patterns
                 .SetNext(contentValidator);
             
             Console.WriteLine();
+
+            #endregion
+
+            #region FactoryMethod
+
+            var cocaCola = new CocaColaFactory().CreateProduct();
+            var pepsi = new PepsiFactory().CreateProduct();
+            
+            Console.WriteLine($"Pepsi: ");
+            pepsi.Drink();
+            Console.WriteLine("CocaCola: ");
+            cocaCola.Drink();
 
             #endregion
         }
