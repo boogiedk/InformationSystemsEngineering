@@ -1,8 +1,9 @@
 ﻿using System;
-using InformationSystemsEngineering.Patterns.ChainOfCommand;
+using InformationSystemsEngineering.Patterns._2.ObserverIterator.Visitor;
+using InformationSystemsEngineering.Patterns._2.ObserverIterator.Visitor.Models;
+using InformationSystemsEngineering.Patterns._4.AbstractFactoryAndBuilder;
 using InformationSystemsEngineering.Patterns.InversionOfControl.FactoryMethod;
 using InformationSystemsEngineering.Patterns.ObserverIterator.Iterator;
-using InformationSystemsEngineering.Patterns.ObserverIterator.Observer;
 using InformationSystemsEngineering.Patterns.Strategy;
 using InformationSystemsEngineering.Patterns.Strategy.Services;
 using InformationSystemsEngineering.Patterns.TemplateMethod;
@@ -51,6 +52,63 @@ namespace InformationSystemsEngineering.Patterns
             
             #endregion
 
+            #region Iterator
+            
+            var collection = new TransportCollection<string>();
+            collection.Add("Dog");
+            collection.Add("Cat");
+            collection.Add("Duck");
+
+            Console.WriteLine("Animals: ");
+
+            foreach (var element in collection)
+            {
+                Console.WriteLine(element);
+            }
+
+            Console.WriteLine("\nReverse animals:");
+
+            collection.ReverseDirection();
+
+            foreach (var element in collection)
+            {
+                Console.WriteLine(element);
+            }
+
+            #endregion
+
+            #region VisitorIterator
+
+            var cars = new TransportCollection<CarModel>
+            {
+                new CarModel() {CarName = "#1", CarСondition = "OK", CarWeight = 1000},
+                new CarModel() {CarName = "#2", CarСondition = "OK", CarWeight = 1200},
+                new CarModel() {CarName = "#3", CarСondition = "NOT OK", CarWeight = 1250}
+            };
+            var trucks = new TransportCollection<TruckModel>
+            {
+                new TruckModel() {TruckName = "#1", TruckСondition = "NOT OK", TruckWeight = 5000},
+                new TruckModel() {TruckName = "#2", TruckСondition = "NOT OK", TruckWeight = 7200},
+                new TruckModel() {TruckName = "#3", TruckСondition = "NOT OK", TruckWeight = 7250}
+            };
+            
+            var weightChecker = new WeightChecker();
+            var conditionChecker = new СonditionChecker();
+            
+            foreach (CarModel? car in cars)
+            {
+                car?.AcceptVisitor(weightChecker);
+                car?.AcceptVisitor(conditionChecker);
+            }
+            
+            foreach (TruckModel? truck in trucks)
+            {
+                truck?.AcceptVisitor(weightChecker);
+                truck?.AcceptVisitor(conditionChecker);
+            }
+
+            #endregion
+            
             #region Strategy
             
             var context = new Context();
@@ -75,65 +133,6 @@ namespace InformationSystemsEngineering.Patterns
 
             #endregion
 
-            #region Iterator
-            
-            var collection = new NotificationCollection<string>();
-            collection.Add("Dog");
-            collection.Add("Cat");
-            collection.Add("Duck");
-
-            Console.WriteLine("Animals: ");
-
-            foreach (var element in collection)
-            {
-                Console.WriteLine(element);
-            }
-
-            Console.WriteLine("\nReverse animals:");
-
-            collection.ReverseDirection();
-
-            foreach (var element in collection)
-            {
-                Console.WriteLine(element);
-            }
-
-            #endregion
-
-            #region ObserverIterator
-            
-            var notificationService = new NotificationServiceObserver();
-            var mobileClient = new MobileClient();
-            notificationService.Attach(mobileClient);
-
-            var desktopClient = new DesktopClient();
-            notificationService.Attach(desktopClient);
-
-            notificationService.ChangeState(2);
-            notificationService.ChangeState(3);
-
-            notificationService.Detach(desktopClient);
-
-            notificationService.ChangeState(2);
-
-            #endregion
-
-            #region ChainOfCommand
-            
-            var requestValidator = new RequestValidatorHandler();
-            var titleValidator = new TitleValidatorHandler();
-            var contentValidator = new ContentValidatorHandler();
-
-            Console.WriteLine("Chain of validate");
-            
-            requestValidator
-                .SetNext(titleValidator)
-                .SetNext(contentValidator);
-            
-            Console.WriteLine();
-
-            #endregion
-
             #region FactoryMethod
 
             var cocaCola = new CocaColaFactory().CreateProduct();
@@ -143,6 +142,18 @@ namespace InformationSystemsEngineering.Patterns
             pepsi.Drink();
             Console.WriteLine("CocaCola: ");
             cocaCola.Drink();
+
+            #endregion
+
+            #region AbstractFactoryAndBuilder
+
+            IVehiclesFactory carFactory = new MercedesFactory();
+            carFactory.CreateCar();
+            carFactory.CreateTruck();
+            
+            carFactory = new VolvoFactory();
+            carFactory.CreateCar();
+            carFactory.CreateTruck();
 
             #endregion
         }

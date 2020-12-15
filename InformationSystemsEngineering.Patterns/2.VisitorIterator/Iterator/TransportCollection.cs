@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InformationSystemsEngineering.Patterns.ObserverIterator.Iterator
 {
-    class NotificationCollection<T> : IteratorAggregate
+    class TransportCollection<T> : IteratorAggregate
     {
         List<T> _collection = new List<T>();
 
@@ -31,7 +31,7 @@ namespace InformationSystemsEngineering.Patterns.ObserverIterator.Iterator
 
         public override IEnumerator GetEnumerator()
         {
-            return new NotificationCollectionIterator<T>(this, _direction);
+            return new TransportCollectionIterator<T>(this, _direction);
         }
     }
 }

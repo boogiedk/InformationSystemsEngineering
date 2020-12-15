@@ -1,14 +1,14 @@
 namespace InformationSystemsEngineering.Patterns.ObserverIterator.Iterator
 {
-    class NotificationCollectionIterator<T> : Iterator
+    class TransportCollectionIterator<T> : Iterator
     {
-        private NotificationCollection<T> _collection;
+        private TransportCollection<T> _collection;
 
         private int _position = -1;
 
         private bool _reverse = false;
 
-        public NotificationCollectionIterator(NotificationCollection<T> collection, bool reverse = false)
+        public TransportCollectionIterator(TransportCollection<T> collection, bool reverse = false)
         {
             _collection = collection;
             _reverse = reverse;
